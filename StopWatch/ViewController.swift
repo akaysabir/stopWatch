@@ -10,7 +10,11 @@ import UIKit
 
 class ViewController: UIViewController {
 
-  @IBOutlet weak var timeLabel: UILabel!
+  @IBOutlet weak var timeLabel: UILabel! {
+    didSet {
+      timeLabel.font = UIFont.monospacedDigitSystemFont(ofSize: timeLabel!.font!.pointSize, weight: UIFont.Weight.regular)
+    }
+  }
   
 
   @IBOutlet weak var resetButton: UIButton!
@@ -23,6 +27,7 @@ class ViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    timeLabel.textAlignment = .left
   }
   
   @objc func fireTimer(timer: Timer) {
@@ -53,7 +58,8 @@ class ViewController: UIViewController {
     let seconds = miliseconds/100%60
     let minutes = miliseconds/100/60
     
-    timeLabel.text = "\(minutes):\(seconds):\((miliseconds)%100)"
+    //timeLabel.text = "\(minutes):\(seconds):\((miliseconds)%100)"
+    timeLabel.text = String(format:"%02i:%02i:%02i", minutes, seconds, miliseconds%100)
   }
   
 }
